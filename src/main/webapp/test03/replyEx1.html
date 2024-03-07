@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+	<script>
+		// document가 ready 되면 동작하는 함수
+		// $(document).ready(function () {
+
+		// });
+
+		function fn_process() {
+
+			var reply = $("input[type*=text]").val();
+			$.ajax({
+
+				type: "get",
+				dataType: "text",
+				url: "http://localhost:8080/pro16/replyTest1",
+				data: { type: reply /*toClient*/ },
+				success: function (toClient, status) {
+					console.log("성공");
+					console.log(toClient, status);
+					$("#reply_text").append(toClient + "<br>");
+					// $("#reply_text").text(toClient);
+				},
+				error: function () {
+					console.log("실패");
+				},
+				complete: function () {
+					console.log("완료");
+				}
+			})
+		}
+	</script>
+</head>
+
+<body>
+	<form>
+		아래는 이 글에 대한 댓글입니다.<br>
+		<input type="text" value="reply">
+		<input type="button" value="댓글 달기" onclick="fn_process()">
+	</form>
+
+	<div id="reply_text"></div>
+
+</body>
+
+</html>
